@@ -14,7 +14,7 @@
     <!-- здесь ссылка на сайт-->
     <meta property="og:url" content="http://....ru/">
     <!-- <meta property="og:image" content="картинка для поисковиков ссылка"> -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg">
+    <!-- <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg"> -->
     <meta name="keywords" content="заказать, цена, бельё, женское, мам">
     <!-- // Для поиска в сети-->
     <title>MAYA-Карточка товара</title>
@@ -105,9 +105,11 @@
               </div>
               <form class="productCard__form" id="orderForm" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь вы можете сделать выбор и отправить продавцу">
                 <!-- Скрытые поля ДЛЯ АДМИНА Массив админов -->
-                <input type="hidden" name="admin_email[]" value="darki@yandex.ru">
-                <input type="hidden" name="admin_email[]" value="darki@mail.ru">
-                <input type="hidden" name="form_subject" value="Заказ товара: Заголовок Товара">
+                <input type="hidden" name="admin_email[]" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->
+                <input type="hidden" name="admin_email[]" value="floristika57@mail.ru"><!--darki@mail.ru-->
+                <input type="hidden" name="form_subject" value="В карточке товара"><!-- Для кнопки -->
+                <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+                <input type="hidden" name="page_url" id="page_url" value="белья">
                 <!-- Поле выбора размера -->
                 <fieldset class="productCard__group">
                   <legend class="productCard__legend">Размер</legend>
@@ -115,31 +117,45 @@
                     <!-- Группируем инпут+лейбл -->
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-xs" name="size" value="XS">
-                      <label class="productCard__label" for="size-xs" tabindex="0" aria-label="Размер XS, радио-кнопка 1 из 7"></label>
+                      <label class="productCard__label" for="size-xs" tabindex="0">
+                        <span class="visually-hidden">Размер XS, радио-кнопка 1 из 7</span><!-- Типа aria-label="Размер XS, радио-кнопка 1 из 7" -->
+                      </label>
                     </div>
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-s" name="size" value="S">
-                      <label class="productCard__label" for="size-s" tabindex="0" aria-label="Размер S, радио-кнопка 2 из 7"></label>
+                      <label class="productCard__label" for="size-s" tabindex="0">
+                        <span class="visually-hidden">Размер S, радио-кнопка 2 из 7</span><!-- Типа aria-label="Размер S, радио-кнопка 2 из 7" -->
+                      </label>
                     </div>  
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-m" name="size" value="M">
-                      <label class="productCard__label" for="size-m" tabindex="0" aria-label="Размер M, радио-кнопка 3 из 7"></label>
+                      <label class="productCard__label" for="size-m" tabindex="0">
+                        <span class="visually-hidden">Размер M, радио-кнопка 3 из 7</span><!-- Типа aria-label="Размер M, радио-кнопка 3 из 7" -->
+                      </label>
                     </div>
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-l" name="size" value="L">
-                      <label class="productCard__label" for="size-l" tabindex="0" aria-label="Размер L, радио-кнопка 4 из 7"></label>
+                      <label class="productCard__label" for="size-l" tabindex="0">
+                        <span class="visually-hidden">Размер L, радио-кнопка 4 из 7</span><!-- Типа aria-label="Размер L, радио-кнопка 4 из 7" -->
+                      </label>
                     </div>
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-xl" name="size" value="XL">
-                      <label class="productCard__label" for="size-xl" tabindex="0" aria-label="Размер XL, радио-кнопка 5 из 7"></label>
+                      <label class="productCard__label" for="size-xl" tabindex="0">
+                        <span class="visually-hidden">Размер XL, радио-кнопка 5 из 7</span><!-- Типа aria-label="Размер XL, радио-кнопка 5 из 7" -->
+                      </label>
                     </div>
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-xxl" name="size" value="XXL">
-                      <label class="productCard__label" for="size-xxl" tabindex="0" aria-label="Размер XXL, радио-кнопка 6 из 7"></label>
+                      <label class="productCard__label" for="size-xxl" tabindex="0">
+                        <span class="visually-hidden">Размер XXL, радио-кнопка 6 из 7</span><!-- Типа aria-label="Размер XXL, радио-кнопка 6 из 7" -->
+                      </label>
                     </div>
                     <div class="productCard__size">
                       <input class="productCard__input" type="radio" id="size-xxxl" name="size" value="XXXL">
-                      <label class="productCard__label" for="size-xxxl" tabindex="0" aria-label="Размер XXXL, радио-кнопка 7 из 7"></label>
+                      <label class="productCard__label" for="size-xxxl" tabindex="0">
+                        <span class="visually-hidden">Размер XXXL, радио-кнопка 7 из 7</span><!-- Типа aria-label="Изменить минимальную цену" -->
+                      </label>
                     </div>   
                   </div>
                 </fieldset>          
@@ -170,7 +186,7 @@
                   </div>
                 </fieldset>          
                 <!-- Скрытое поле с email (Для админа(для Reply-To в письме) сайта) -->
-                <input type="hidden" name="email" value="darki@yandex.ru"><!--darki@yandex.ru-->          
+                <input type="hidden" name="email" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->          
                 <!-- Кнопка отправки -->
                 <button class="productCard__btn btn" type="submit">Заказать</button>
                 <div class="productCard__message" id="formMessage"></div>
@@ -197,5 +213,62 @@
 
     <script src="js/productCard.js"></script>
     <script src="js/script.js"></script>
+
+    <!-- AJAX - Чтобы сайт не прыгал, нужно отправлять форму без перезагрузки страницы. ОН должен стоят после ваших скриптов, но до закрывающего тега </body>. -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      // Ловим любые формы, которые отправляются на mail.php ИЛИ mail-NoLoga.php
+      const forms = document.querySelectorAll('form[action*="mail.php"], form[action*="mail-NoLoga.php"]');
+
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault(); // Останавливаем обычную отправку
+
+          const formData = new FormData(this);
+
+          fetch(this.action, {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => {
+            if (response.ok) {
+              // Показываем сообщение об успехе
+              const message = document.createElement('div');
+              message.className = 'success-message';
+              message.textContent = '👍 Спасибо! Данные отправлены.';
+              message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #BF7691; color: white; padding: 15px 25px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 9999; animation: slideIn 0.3s ease;';
+              
+              document.body.appendChild(message);
+              
+              // Убираем сообщение через 3 секунды
+              setTimeout(() => message.remove(), 3000);
+              
+              // Очищаем поле email (если есть)
+              const emailInput = this.querySelector('input[name="email"]');
+              if (emailInput) emailInput.value = '';
+            } else {
+              alert('❌ Ошибка при отправке');
+            }
+          })
+          .catch(error => {
+            console.error('Ошибка:', error);
+            alert('❌ Произошла ошибка');
+          });
+        });
+      });
+    });
+    </script>
+    
+    <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+    <script>
+      // Определяем, на какой мы странице
+      const path = window.location.pathname;
+      let page = 'неизвестно';
+      
+      if (path.includes('index') || path === '/') page = 'главная';
+      else if (path.includes('productCard')) page = 'белья';
+      
+      document.getElementById('page_url').value = page;
+    </script> 
   </body>
 </html>

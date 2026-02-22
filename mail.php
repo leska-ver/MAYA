@@ -5,6 +5,11 @@
 // ВЕРСИЯ: 2.0
 // ============================================================================
 
+  // Подключаем PHPMailer		
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
+  use PHPMailer\PHPMailer\SMTP; // Настройки для продакшена (раскомментировать при необходимости)
+
   ob_start(); // ← Старт БУФЕРА - для полной защиты от ошибок с заголовками
 
   // Включаем логирование ошибок
@@ -37,10 +42,9 @@
   // ======== РАБОТА С БАЗОЙ ДАННЫХ ========
 
   // Подключение "Базы данных", тот же код. ПРОФИ КОД. Скопировали и закинули в файл list.php
-  // Исправляем код на своё ci54422_elochka 1GmHsZV
-  $dbname = 'ci54422_elochka';//Из сайта имя "Базы данных MySQL"/
-  $dbuser = 'ci54422_elochka';//Из сайта имя "Базы данных MySQL"/
-  $dbpass = '1GmHsZV';//Пароль из сайта "Базы данных"/
+  $dbname = 'cc50985_maya';//Из сайта имя "Базы данных MySQL"/
+  $dbuser = 'cc50985_maya';//Из сайта имя "Базы данных MySQL"/
+  $dbpass = 'yaStore20';//Пароль из сайта "Базы данных"/
 
   try {
     $pdo = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpass);//для подключения к базе данных MySQL
@@ -67,7 +71,7 @@
   write_order_log("Тип формы: $form_type, Тема: $form_subject");
   
   // Подготавливаем запрос для вставки данных. list.php читает эти поля
-  $stmt = $pdo->prepare('INSERT INTO orders (name, email, message, size, color, form_type, form_subject, ip_address, user_agent, date) VALUES (:name, :email, :message, :size, :color, :form_type, :form_subject, :ip_address, :user_agent, NOW())');
+  $stmt = $pdo->prepare('INSERT INTO form_submissions (name, email, message, size, color, form_type, form_subject, ip_address, user_agent, page_url, date) VALUES (:name, :email, :message, :size, :color, :form_type, :form_subject, :ip_address, :user_agent, :page_url, NOW())');
 
   // Привязываем значения
   $stmt->bindValue(':name', $_POST['name'] ?? '', PDO::PARAM_STR);
@@ -76,6 +80,7 @@
   $stmt->bindValue(':size', $_POST['size'] ?? '', PDO::PARAM_STR);
   $stmt->bindValue(':color', $_POST['color'] ?? '', PDO::PARAM_STR);
   $stmt->bindValue(':form_type', $form_type, PDO::PARAM_STR);
+  $stmt->bindValue(':page_url', $_POST['page_url'] ?? '', PDO::PARAM_STR);
   $stmt->bindValue(':form_subject', $form_subject, PDO::PARAM_STR);
   $stmt->bindValue(':ip_address', $_SERVER['REMOTE_ADDR'] ?? '', PDO::PARAM_STR);
   $stmt->bindValue(':user_agent', $_SERVER['HTTP_USER_AGENT'] ?? '', PDO::PARAM_STR);
@@ -103,9 +108,6 @@
     require_once $phpmailer_path . '/src/Exception.php';
     require_once $phpmailer_path . '/src/PHPMailer.php';
     require_once $phpmailer_path . '/src/SMTP.php';
-    
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
     
     write_order_log("PHPMailer подключен успешно");
   } else {
@@ -146,7 +148,8 @@
 
   // Добавляем префикс для заказов товара
   if (isset($_POST['size']) || isset($_POST['color'])) {
-    if (stripos($form_subject, 'заказ') === false) {
+    // Проверяем, что префикса ещё нет в начале строки
+    if (stripos($form_subject, 'Заказ товара:') !== 0) {
       $form_subject = 'Заказ товара: ' . $form_subject;
     }
   }
@@ -192,6 +195,12 @@
     $field_name = $field_names[$key] ?? ucfirst(str_replace('_', ' ', $key));
     
     $message_body .= "<tr><td style='padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 200px;'>$field_name:</td>" . "<td style='padding: 10px; border: 1px solid #ddd;'>$value</td></tr>";
+  }
+
+  // Добавляем email пользователя (гарантированно)
+  if (!empty($_POST['email'])) {
+    $message_body .= "<tr><td style='padding: 10px; border: 1px solid #ddd; font-weight: bold;'>Email пользователя:</td>" . 
+                     "<td style='padding: 10px; border: 1px solid #ddd;'>" . htmlspecialchars($_POST['email']) . "</td></tr>";
   }
 
   // Добавляем системную информацию
@@ -260,27 +269,31 @@ try {
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
     
-    // Настройки для локального тестирования
-    $mail->isMail(); // Используем стандартную функцию mail() PHP
-    
-    // Настройки для продакшена (раскомментировать при необходимости)
-    /*
+    // --- Начало --- Настройки для локального тестирования ---
+    //$mail->isMail(); //Используем стандартную функцию mail() PHP
+    // От кого 
+    // $mail->setFrom('noreply@' . $_SERVER['HTTP_HOST'], 'Магазин MAYA');
+    // $reply_email = $_POST['email'] ?? ($admin_emails[0] ?? 'noreply@' . $_SERVER['HTTP_HOST']);
+    // $mail->addReplyTo($reply_email, $_POST['name'] ?? '');
+    // --- Настройки для локального тестирования --- Конец ---    
+
+    // --- Начало --- Настройки для продакшена (раскомментировать при необходимости). SMTP вы сможете настроить позже, когда получите правильный пароль от ящика test.ru. Это если пользователь присылает свой пароль на нашу почту.   
     $mail->isSMTP();
-    $mail->Host = 'smtp.yandex.ru';
+    $mail->Host = 'smtp.timeweb.ru';        
     $mail->SMTPAuth = true;
-    $mail->Username = 'ваш_email@yandex.ru';
-    $mail->Password = 'ваш_пароль';
+    $mail->Username = 'test.ru'; // Почта в тимвебе(cc50985). Спам-фильтр
+    $mail->Password = 'g7K8p0Y!'; // ВАШ ПАРОЛЬ от почты test.ru - g7K8p0Y!
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
-    $mail->SMTPDebug = 0; // 0 = отключить, 2 = включить отладку
-    */
+    $mail->From = 'test.ru';
+    $mail->FromName = 'Магазин MAYA';
+    $mail->SMTPDebug = 2; // 0 = отключить, 2 = включить отладку. Увидели ошибку → исправили → вернули 0
+       
+    // От кого 
+    $mail->setFrom('test.ru', 'Магазин MAYA');
+    // --- Настройки для продакшена --- Конец ---
     
-    // От кого
-    $mail->setFrom('noreply@' . $_SERVER['HTTP_HOST'], 'Магазин MAYA');
-    $reply_email = $_POST['email'] ?? ($admin_emails[0] ?? 'noreply@' . $_SERVER['HTTP_HOST']);
-    $mail->addReplyTo($reply_email, $_POST['name'] ?? '');
-    
-    // Кому
+    // Кому — админы
     foreach ($admin_emails as $email) {
       $mail->addAddress($email);
     }

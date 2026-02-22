@@ -125,7 +125,7 @@ a {
 }
 
 /*a:visited {
-  color: #BF7691;  Цвет посещенных ссылок 
+  color: var(--color-turkishRose);  Цвет посещенных ссылок 
 }*/
 
 h1, h2, h3, h4, h5, h6, p, a {
@@ -372,7 +372,7 @@ textarea {
   position: absolute;
   width: 40px;
   height: 6px;
-  background-color: #fff;
+  background-color: var(--color-white);
   transition: .4s;
 }
 
@@ -717,6 +717,11 @@ textarea {
   background-image: url("../img/catalog/4.jpg");
 }
 
+.card:focus-visible {
+  outline: none; /* убирает синюю рамку */
+  background-color: rgba(191, 118, 145, 0.1); 
+}
+
 .card:hover {
   transform: translateY(-5px);
 }
@@ -752,6 +757,8 @@ textarea {
   background-color: rgba(0,0,0,0.5);
   transition: opacity 0.3s ease;
   opacity: 0;
+  overflow-y: auto; /* чтобы можно было скроллить внутри модалки */
+  -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
   z-index: 1000;
 }
 
@@ -767,7 +774,7 @@ textarea {
   border-radius: 10px;
   width: 90%;
   max-width: 500px;
-  background-color: white;
+  background-color: var(--color-white);
   transform: translateY(-20px);
   transition: all 0.3s ease;
   opacity: 0;
@@ -799,7 +806,12 @@ textarea {
   font-size: 24px;
   font-weight: bold;
   color: #999;
-  cursor: pointer;
+  outline: none;
+} 
+
+.modal__close:focus {
+  color: var(--color-white);
+  background-color: var(--color-turkishRose);
 }
 
 .modal__close:hover {
@@ -1135,7 +1147,7 @@ textarea {
   height: 100%;
 }
 
-.reviews__desc {
+.reviews__block {
   display: flex;
   flex-direction: column; /* столбиком */
   align-items: center; /* центрируем элементы */
@@ -1153,19 +1165,25 @@ textarea {
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0;
+  padding: 0 30px;
   height: 100%; /* ← ЗАНИМАЕТ ВСЮ ВЫСОТУ РОДИТЕЛЯ */
   font-size: clamp(18px, 5vw, 20px);
   font-weight: 400;
+  line-height: 1.5;
   text-align: center;
 }
 
-.reviews__article:hover .reviews__desc {
+.reviews__article:hover .reviews__block {
   color: var(--color-pink);
+}
+
+.reviews__name-age {
+  font-size: clamp(14px, 5vw, 18px);
 }
 
 .reviews__name-age, 
 .reviews__city {
+  margin: 0;
   text-align: center;
 }
 
@@ -1190,7 +1208,7 @@ textarea {
 }
 
 .otzyvy2 .reviews__list {
-  margin-bottom: 41px;
+  margin-bottom: 15px;
 }
 /*** // otzyvy2(reviews)-1920px страница отзывов ***/
 
@@ -1279,7 +1297,7 @@ textarea {
 }
 /* // Состояние когда аккордеон открыт */
 
-.fag__text {
+.faq__text {
   line-height: 1.5;
 }
 /*** // faq-1920px аккордеона (табов)***/
@@ -1635,7 +1653,7 @@ input::placeholder {
   border-radius: 10px;
   width: 100%;
   height: 100%;
-  background-color: #BF7691;
+  background-color: var(--color-turkishRose);
   opacity: 0; 
   transition: opacity 0.3s ease; /* для плавного появления */
   pointer-events: none; /* чтобы не мешать ховеру на родителе */
@@ -1677,7 +1695,7 @@ input::placeholder {
   grid-template-columns: repeat(2, 60px);
   gap: 20px;
   margin: 0 0 17px -32px;
-  color: white; /* для текста "2,4К" */
+  color: var(--color-white); /* для текста "2,4К" */
 }
 
 .instagram__svg {
@@ -1699,7 +1717,7 @@ input::placeholder {
 
 .instagram__count {
   font-size: clamp(14px, 5vw, 18px);
-  color: white; 
+  color: var(--color-white); 
   vertical-align: middle;
 }
 
@@ -1780,12 +1798,7 @@ input::placeholder {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: mayaShine 1s ease 0.5s;
 }
 
@@ -1989,7 +2002,7 @@ input::placeholder {
 /* КРУГЛЫЕ РУЧКИ ПОЛЗУНКА (в js) */
 .katalog__form .noUi-handle {
   border-radius: 50%;  
-  background: var(--color-c4);
+  background-color: var(--color-c4);
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -2135,7 +2148,7 @@ input::placeholder {
 /* Для кнопки "Все" отдельный стиль */
 #reset:checked ~ .katalog__left label[for="reset"] {
   background: linear-gradient(135deg, #666, #888);
-  color: white;
+  color: var(--color-white);
   border-color: #555;
 }
 
@@ -2257,7 +2270,7 @@ input::placeholder {
 
 .katalog__search-input:focus-visible {
   border: 1px solid transparent;
-  color: #000;
+  color: var(--color-black);
 }
 
 /* Убрать нативный крестик у search input */
@@ -2458,7 +2471,7 @@ input::placeholder {
   line-height: .8;
 }
 
-.katalog__filter-name, .katalog__filter-price {
+.katalog__filter-h3, .katalog__filter-price {
   text-align: center;
 }
 
@@ -2470,7 +2483,7 @@ input::placeholder {
 }
 
 .katalog__filter-btn:hover {
-  background: #B95F76;
+  background-color: var(--color-tapestry);
 }
 
 /* Ползунок цены */
@@ -2497,7 +2510,7 @@ input::placeholder {
 .katalog__line {
   width: 20px;
   height: 2px;
-  background: #ddd;
+  background-color: #ddd;
 }
 /*** // katalog-1920px ***/
 
@@ -2624,7 +2637,7 @@ input::placeholder {
 
 .miniature:focus,
 .miniature:focus-visible {
-  border: 2px solid #BF7691;
+  border: 2px solid var(--color-turkishRose);
 }
 
 .miniature:hover {
@@ -2660,20 +2673,19 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 2px;
   border-radius: 50%;
   border: none;
   width: 20px;
   font-size: 25px;
-  color: #BF7691;
+  color: var(--color-turkishRose);
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
 .productCard__arrow:focus {
-  background-color: #BF7691;
-  color: #fff;
-  outline: 2px solid #BF7691;
+  background-color: var(--color-turkishRose);
+  color: var(--color-white);
+  outline: 2px solid var(--color-turkishRose);
 }
 
 .productCard__arrow:hover {
@@ -2682,7 +2694,7 @@ input::placeholder {
 }
 
 .productCard__arrow:disabled {
-  color: #484848;
+  color: var(--color-tundora);
   cursor: not-allowed;
   transform: none;
 }
@@ -2716,7 +2728,7 @@ input::placeholder {
 .productCard__legend {
   font-weight: 600;
   font-size: 18px;
-  color: #484848;
+  color: var(--color-tundora);
   margin-bottom: 16px;
   padding: 0;
   width: 100%;
@@ -2838,7 +2850,7 @@ input::placeholder {
 .productCard__label[for="size-xxl"]:focus-visible,
 .productCard__label[for="size-xxxl"]:focus-visible {
     outline: none;
-    background-color: #C4C4C4;
+    background-color: var(--color-c4);
     transform: translateY(-1px);
     animation: radio-pulse 1.5s infinite;
 }
@@ -2884,14 +2896,14 @@ input::placeholder {
 
 /* Состояние выбранной кнопки */
 .productCard__radio-btn:checked + .custom-radio-btn {
-  border-color: #BF7691;
+  border-color: var(--color-turkishRose);
 }
 .productCard__radio-btn:checked + .custom-radio-btn::after {
   transform: translate(-50%, -50%) scale(1);
 }
 /* Фокус для доступности */
 .productCard__radio-btn:focus-visible + .custom-radio-btn {
-  outline: 2px solid #BF7691;
+  outline: 2px solid var(--color-turkishRose);
   outline-offset: 2px;
 }
 
@@ -2906,13 +2918,13 @@ input::placeholder {
 }
 
 .productCard__radio-btn:checked + .productCard__color-btn {
-  border-color: #BF7691;
+  border-color: var(--color-turkishRose);
   transform: scale(1.05);
   box-shadow: 0 0 0 2px rgba(191, 118, 145, 0.3);
 }
 
 .productCard__radio-btn:focus-visible + .productCard__color-btn {
-  outline: 2px solid #BF7691;
+  outline: 2px solid var(--color-turkishRose);
   outline-offset: 2px;
 }
 
@@ -2926,7 +2938,7 @@ input::placeholder {
   max-width: 103px;
   font-size: clamp(12px, 5vw, 16px);
   font-weight: 600;
-  color: white;
+  color: var(--color-white);
   background: linear-gradient(135deg, #BF7691, #B95F76);
   transition: all 0.3s ease;
 }
@@ -3088,9 +3100,13 @@ input::placeholder {
   color: var(--color-tapestry);
 }
 
+.method-card__intro {
+  margin: 0;
+  font-size: clamp(13px, 5vw, 18px);
+}
+
 .method-card__list {
   margin-bottom: 33px;
-  font-size: clamp(13px, 5vw, 18px);
 }
 
 .method-card__item {
@@ -3120,7 +3136,31 @@ input::placeholder {
   outline-color: var(--color-tapestry);
 }
 
+/* Для AJAX - Чтобы сайт не прыгал, нужно отправлять форму без перезагрузки страницы */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--color-turkishRose);
+  color: var(--color-white);
+  padding: 15px 25px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+}
 
+@keyframes slideIn {
+  from {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+/* // Для AJAX - Чтобы сайт не прыгал, нужно отправлять форму без перезагрузки страницы */
 
 @media (max-width: 1400px) {
   .o-nas__block {

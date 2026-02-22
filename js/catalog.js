@@ -1,4 +1,35 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // ========== ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ПОИСКА ПО ЦЕНЕ ========== //
+  function smartPriceSearch(searchTerm, itemPrice) {
+    // Защита от пустого поиска
+    if (!searchTerm) return false;
+    
+    const term = searchTerm.toLowerCase().trim();
+    const itemPriceStr = itemPrice.toString();
+    
+    // 1. Прямое совпадение числа
+    if (/^\d+$/.test(term)) {
+      return itemPrice === parseInt(term);
+    }
+    
+    // 2. Поиск с "тыс", "т" (например "15тыс" = 15000)
+    if (term.includes('тыс') || term.includes('т')) {
+      const numPart = term.replace(/[^0-9]/g, '');
+      if (numPart) {
+        const priceInThousands = parseInt(numPart) * 1000;
+        return Math.abs(itemPrice - priceInThousands) < 1000;
+      }
+    }
+    
+    // 3. Поиск по первым цифрам (например "15" найдет 15000)
+    if (/^\d+$/.test(term) && itemPriceStr.startsWith(term)) {
+      return true;
+    }
+    
+    return false;
+  }
+
+
   // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ========== //
   const rangeSlider = document.getElementById("range-slider");
   const filterItems = document.querySelectorAll('.katalog__filter-item');
@@ -27,13 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
     'exclusive': 'от 150 001₽ (эксклюзив)'
   };
   
+
   // ========== ОЧИСТКА ПОИСКА ========== //
   function clearSearch() {
     if (searchInput) searchInput.value = '';
     
     filterItems.forEach(item => {
       const priceElement = item.querySelector('.katalog__filter-price');
-      const nameElement = item.querySelector('.katalog__filter-name');
+      const nameElement = item.querySelector('.katalog__filter-h3');
       
       // Восстанавливаем оригинальный текст цены
       if (priceElement && priceElement.innerHTML !== priceElement.textContent) {
@@ -49,12 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+
   // ========== ПОЛУЧЕНИЕ ЦВЕТА КАРТОЧКИ ========== //
   function getItemColor(item) {
     const colors = ['blueXs', 'redS', 'greenM', 'yellowL', 'pinkXL', 'brownXXL', 'goldXXXL'];
     return colors.find(color => item.classList.contains(color)) || '';
   }
   
+
   // ========== ОСНОВНАЯ ФИЛЬТРАЦИЯ ========== //
   function applyFilters() {
     const searchTerm = searchInput ? searchInput.value.trim() : '';
@@ -80,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Ищем все товары по поиску
       filterItems.forEach(item => {
-        const nameElement = item.querySelector('.katalog__filter-name');
+        const nameElement = item.querySelector('.katalog__filter-h3');
         if (nameElement && nameElement.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
           const itemPrice = parseInt(item.getAttribute('data-price')) || 0;
           if (itemPrice > foundPrice) {
@@ -122,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let matchedText = '';
       
       if (searchTerm) {
-        const nameElement = item.querySelector('.katalog__filter-name');
+        const nameElement = item.querySelector('.katalog__filter-h3');
         const descElement = item.querySelector('.katalog__filter-desc');
 
         // Поиск по тексту (название, описание)
@@ -170,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
       item.style.display = shouldShow ? 'flex' : 'none';
 
       // Сохраняем оригинальный текст названия
-      const nameElement = item.querySelector('.katalog__filter-name');
+      const nameElement = item.querySelector('.katalog__filter-h3');
       if (nameElement && !nameElement.hasAttribute('data-original-text')) {
         nameElement.setAttribute('data-original-text', nameElement.textContent);
       }
@@ -222,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const priceElement = item.querySelector('.katalog__filter-price');
       if (priceElement) {
         const originalPrice = item.getAttribute('data-price');
-        const originalPriceStr = originalPrice.toString();
+        const originalPriceStr = originalPrice ? originalPrice.toString() : '';
         
         if (searchTerm && priceMatch && shouldShow) {
           // Ищем позицию поискового запроса в цене
@@ -236,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             priceElement.innerHTML = `${before}<span style="background-color: #ffeb3b; padding: 2px 4px; border-radius: 3px; color: #000;">${found}</span>${after}₽`;
           } else {
-            // Если не нашли точное вхождение (например, "152т"), подсвечиваем всю цену
+            // Если не нашли точное вхождение, подсвечиваем всю цену
             priceElement.innerHTML = `<span style="background-color: #ffeb3b; padding: 2px 6px; border-radius: 4px; color: #000;">${originalPrice}₽</span>`;
           }
         } else {
@@ -246,6 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
   
   // ========== СБРОС ВСЕХ ФИЛЬТРОВ ========== //
   function resetAllFilters() {
@@ -266,14 +301,15 @@ document.addEventListener('DOMContentLoaded', function() {
     applyFilters();
   }
   
+
   // ========== ПОЛЗУНОК ЦЕНЫ ========== //
   function initPriceSlider() {
     if (!rangeSlider) return;
     
     noUiSlider.create(rangeSlider, {
-      start: [2000, 104545],
+      start: [2000, 150000],
       connect: true,
-      step: 1,
+      step: 100,
       range: { 'min': 0, 'max': 225000 }
     });
     
@@ -282,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const minInput = document.getElementById("first-price");
     const maxInput = document.getElementById("second-price");
     
+    // Обновляем отображение при движении ползунка
     rangeSlider.noUiSlider.on("update", function(values) {
       const minVal = Math.round(values[0]);
       const maxVal = Math.round(values[1]);
@@ -289,40 +326,97 @@ document.addEventListener('DOMContentLoaded', function() {
       minInput.value = minVal;
       maxInput.value = maxVal;
       minDisplay.textContent = minVal === 2000 ? "от" : formatPrice(minVal);
-      maxDisplay.textContent = maxVal === 104545 ? "до" : formatPrice(maxVal);
-      
+      maxDisplay.textContent = maxVal === 150000 ? "до" : formatPrice(maxVal);
+    });
+    
+    // Применяем фильтры после отпускания ползунка (не во время движения)
+    rangeSlider.noUiSlider.on("change", function(values) {
       applyFilters();
     });
     
-    function toggleInput(display, input) {
+    // Функция для переключения между span и input
+    function toggleToInput(display, input) {
       display.style.display = 'none';
       input.style.display = 'block';
-      input.value = '';
       input.focus();
       input.select();
     }
     
-    minDisplay.addEventListener('click', () => toggleInput(minDisplay, minInput));
-    maxDisplay.addEventListener('click', () => toggleInput(maxDisplay, maxInput));
-    
-    function blurInput(input, display) {
+    // Функция для применения значения из input
+    function applyInputValue(input, display, isMin) {
+      // СОХРАНЯЕМ ВВЕДЁННОЕ ЗНАЧЕНИЕ
+      const originalValue = input.value;
+      
+      let value = parseInt(originalValue);
+      
+      if (isNaN(value)) {
+        const currentValues = rangeSlider.noUiSlider.get();
+        value = isMin ? Math.round(currentValues[0]) : Math.round(currentValues[1]);
+      } else {
+        const min = 0;
+        const max = 225000;
+        value = Math.max(min, Math.min(max, value));
+        
+        const currentValues = rangeSlider.noUiSlider.get();
+        let newMin = isMin ? value : Math.round(currentValues[0]);
+        let newMax = isMin ? Math.round(currentValues[1]) : value;
+        
+        if (newMin > newMax) {
+          if (isMin) {
+            newMin = newMax;
+          } else {
+            newMax = newMin;
+          }
+        }
+        
+        rangeSlider.noUiSlider.set([newMin, newMax]);
+      }
+      
+      // ПОКАЗЫВАЕМ СОХРАНЁННОЕ ЗНАЧЕНИЕ
+      display.textContent = formatPrice(parseInt(originalValue));
+      
       input.style.display = 'none';
       display.style.display = 'flex';
-      rangeSlider.noUiSlider.set([this.value, null]);
     }
     
-    minInput.addEventListener('blur', () => blurInput(minInput, minDisplay));
-    maxInput.addEventListener('blur', () => blurInput(maxInput, maxDisplay));
+    // Клик по "от" - показываем input
+    minDisplay.addEventListener('click', () => toggleToInput(minDisplay, minInput));
     
-    minInput.addEventListener('keypress', e => { if (e.key === 'Enter') minInput.blur(); });
-    maxInput.addEventListener('keypress', e => { if (e.key === 'Enter') maxInput.blur(); });
+    // Клик по "до" - показываем input
+    maxDisplay.addEventListener('click', () => toggleToInput(maxDisplay, maxInput));
+    
+    // Обработка потери фокуса для input
+    minInput.addEventListener('blur', function() {
+      applyInputValue(minInput, minDisplay, true);
+    });
+    
+    maxInput.addEventListener('blur', function() {
+      applyInputValue(maxInput, maxDisplay, false);
+    });
+    
+    // Обработка нажатия Enter
+    minInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.blur(); // Вызывает событие blur
+      }
+    });
+    
+    maxInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.blur(); // Вызывает событие blur
+      }
+    });
   }
   
+
   // ========== ФОРМАТИРОВАНИЕ ЦЕНЫ ========== //
   function formatPrice(num) {
     return new Intl.NumberFormat('ru-RU').format(num);
   }
   
+
   // ========== УМНЫЙ ПОИСК ПО ЦЕНЕ ========== //
   function smartPriceSearch(searchTerm, itemPrice) {
     const term = searchTerm.toLowerCase();
@@ -338,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return false;
   }
   
+
   // ========== ПОИСК С ПОДСВЕТКОЙ ========== //
   function initSearch() {
     if (!searchInput) return;
@@ -347,6 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+
   // ========== Селект Ценовые категории ========== //
   function initSizeSelect() {
     const element = document.querySelector('.katalog__size-select');
@@ -405,6 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+
   // ========== РАДИО-КНОПКИ ========== //
   function initRadioButtons() {
     colorInputs.forEach(input => {
@@ -421,6 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
 
   // ========== ФУНКЦИЯ ДЛЯ ПЕРЕКЛЮЧЕНИЯ ПОИСКА ========== //
   function initSearchToggleIcons() {
@@ -470,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateIcons();
   }
   
+
   // ========== ИНИЦИАЛИЗАЦИЯ ========== //
   function init() {
     initPriceSlider();

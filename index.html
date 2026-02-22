@@ -14,7 +14,7 @@
     <!-- здесь ссылка на сайт-->
     <meta property="og:url" content="http://....ru/">
     <!-- <meta property="og:image" content="картинка для поисковиков ссылка"> -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg">
+    <!-- <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg"> -->
     <meta name="keywords" content="заказать, цена, бельё, женское, мам">
     <!-- // Для поиска в сети-->
     <title>MAYA</title>
@@ -25,7 +25,7 @@
     <!-- Временный багфикс. Когда гугл показывает старые данные, ставим это.  
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">-->
+    <meta http-equiv="Expires" content="0">-->    
   </head>
   <body>
     <div class="wrapper">
@@ -129,16 +129,16 @@
             <h2 class="catalog__h2 h2">Каталог товаров</h2>
             <div class="catalog__block">
               <ul class="catalog__list width-1169">
-                <li class="catalog__item catalog__item--bg-1 card" data-modal="modal1">                  
+                <li class="catalog__item catalog__item--bg-1 card" data-modal="modal1" tabindex="0">                  
                   <button class="card__btn">бандажи</button>
                 </li>
-                <li class="catalog__item catalog__item--bg-2 card" data-modal="modal2">
+                <li class="catalog__item catalog__item--bg-2 card" data-modal="modal2" tabindex="0">
                   <button class="card__btn">бюстгалтеры</button>
                 </li>
-                <li class="catalog__item catalog__item--bg-3 card" data-modal="modal3">
+                <li class="catalog__item catalog__item--bg-3 card" data-modal="modal3" tabindex="0">
                   <button class="card__btn">трусики</button>
                 </li>
-                <li class="catalog__item catalog__item--bg-4 card" data-modal="modal4">
+                <li class="catalog__item catalog__item--bg-4 card" data-modal="modal4" tabindex="0">
                   <button class="card__btn">другое</button>
                 </li>
               </ul>
@@ -146,7 +146,7 @@
             <!-- Модальное окно 1 -->
             <div id="modal1" class="catalog__modal modal">
               <div class="modal__content">
-                <span class="modal__close close">&times;</span>
+                <button class="modal__close close">&times;</button>
                 <h2>Подробная информация о карточке 1</h2>
                 <p>Это полное описание для первой карточки. Здесь может быть больше текста, изображения или другие элементы.</p>
                 <p>Вы можете добавить любую информацию, которая относится к этой карточке.</p>
@@ -156,7 +156,7 @@
             <!-- Модальное окно 2 -->
             <div id="modal2" class="catalog__modal modal">
               <div class="modal__content">
-                <span class="modal__close close">&times;</span>
+                <button class="modal__close close">&times;</button>
                 <h2>Подробная информация о карточке 2</h2>
                 <p>Это полное описание для второй карточки. Каждое модальное окно уникально и содержит свою информацию.</p>
                 <p>Здесь может быть форма, таблица или любой другой контент.</p>
@@ -166,7 +166,7 @@
             <!-- Модальное окно 3 -->
             <div id="modal3" class="catalog__modal modal">
               <div class="modal__content">
-                <span class="modal__close close">&times;</span>
+                <button class="modal__close close">&times;</button>
                 <h2>Подробная информация о карточке 3</h2>
                 <p>Это полное описание для третьей карточки. Каждое модальное окно открывается для своей карточки.</p>
                 <p>Содержимое может быть совершенно разным для каждого окна.</p>
@@ -176,7 +176,7 @@
             <!-- Модальное окно 4 -->
             <div id="modal4" class="catalog__modal modal">
               <div class="modal__content">
-                <span class="modal__close close">&times;</span>
+                <button class="modal__close close">&times;</button>
                 <h2>Подробная информация о карточке 4</h2>
                 <p>Это полное описание для четвертой карточки. Система проста в использовании и настройке.</p>
                 <p>Вы можете легко изменить стили и содержимое под свои нужды.</p>
@@ -189,21 +189,22 @@
             <h2 class="novelty__h2 h2">Посмотрите наши новинки</h2>
             <div class="novelty__block width-1169">
               <div class="novelty__row">
-                <a href="/category/trousers" class="novelty__card novelty__card--1 col-span-5" target="_blank" aria-label="Трусики">
+                <a href="productCard.html" class="novelty__card novelty__card--1 col-span-5" target="_blank" aria-label="Трусики">
                   <span class="novelty__card-text">Трусики с высокой талией</span>
                 </a>
-                <a href="/category/leggings" class="novelty__card novelty__card--2 col-span-5" target="_blank" aria-label="Легинсы серые">
+                <a href="productCard.html" class="novelty__card novelty__card--2 col-span-5" target="_blank" aria-label="Легинсы серые">
                   <span class="novelty__card-text">Легинсы</span>
                 </a>
               </div>
               <div class="novelty__row">
-                <a href="/category/leggings" class="novelty__card novelty__card--3 col-span-1" target="_blank" aria-label="Легинсы чёрные">
+                <a href="productCard.html" class="novelty__card novelty__card--3 col-span-1" target="_blank" aria-label="Легинсы чёрные">
                   <span class="novelty__card-text">Легинсы</span>
                 </a>
-                <a href="/category/postpartum" class="novelty__card novelty__card--4 col-span-6" target="_blank" aria-label="Бандаж">
+                <a href="productCard.html" class="novelty__card novelty__card--4 col-span-6" target="_blank" aria-label="Бандаж">
                   <span class="novelty__card-text">бандаж послеродовой</span>
                 </a>
-            </div>    
+              </div> 
+            </div>   
           </div>
         </section> 
         <!-- Шаблон-1.1 -->
@@ -212,14 +213,14 @@
             <h2 class="cta__h2 h2">Получи купон со скидкой 500 рублей на первый заказ</h2>
             <button class="cta__btn btn">
               <span class="btn-text">ПОЛУЧИТЬ КУПОН</span>
-              <div class="btn-shine"></div>
+              <span class="btn-shine"></span>
             </button>
           </div>
         </section>
         <!-- Шаблон-2.1 -->
         <section class="reviews">
           <div class="reviews__container container">
-            <h2 class="reviews__h2 h2">ОТзывы наших счастливых покупателей</h2>
+            <h2 class="reviews__h2 h2">Отзывы наших счастливых покупателей</h2>
             <ul class="reviews__list width-1169" id="list-further">
               <li class="reviews__item">
                 <article class="reviews__article">
@@ -227,10 +228,10 @@
                     <img class="reviews__img" src="./img/reviews/1.jpg" alt="Фото клиента 1">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -239,10 +240,10 @@
                     <img class="reviews__img" src="./img/reviews/2.jpg" alt="Фото клиента 2">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -251,10 +252,10 @@
                     <img class="reviews__img" src="./img/reviews/3.jpg" alt="Фото клиента 3">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -263,10 +264,10 @@
                     <img class="reviews__img" src="./img/reviews/4.jpg" alt="Фото клиента 4">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -275,10 +276,10 @@
                     <img class="reviews__img" src="./img/reviews/5.jpg" alt="Фото клиента 5">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -287,10 +288,10 @@
                     <img class="reviews__img" src="./img/reviews/6.jpg" alt="Фото клиента 6">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -299,10 +300,10 @@
                     <img class="reviews__img" src="./img/reviews/7.jpg" alt="Фото клиента 7">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item">
@@ -311,10 +312,10 @@
                     <img class="reviews__img" src="./img/reviews/8.jpg" alt="Фото клиента 8">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <!-- эти 2 скрыты изначально - hidden-item -->
@@ -324,10 +325,10 @@
                     <img class="reviews__img" src="./img/reviews/2.jpg" alt="Фото клиента 9">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
               <li class="reviews__item hidden-item">
@@ -336,10 +337,10 @@
                     <img class="reviews__img" src="./img/reviews/3.jpg" alt="Фото клиента 10">
                     <img class="reviews__play-icon" src="./img/reviews/play.svg" alt="Play Market" width="23" height="26">
                   </div>
-                  <p class="reviews__desc">
-                    <span class="reviews__name-age">Анастасия, 35 лет</span>
-                    <span class="reviews__city">Новосибирск</span>
-                  </p>
+                  <div class="reviews__block">
+                    <h3 class="reviews__name-age">Анастасия, 35 лет</h3>
+                    <p class="reviews__city">Новосибирск</p>
+                  </div>
                 </article>
               </li>
             </ul>
@@ -361,7 +362,7 @@
                 </button>
                 <!-- Контент с ответом -->
                 <div class="faq__answer" id="answer1" hidden>
-                  <p class="fag__text">Размер бандажа выбирается по обхвату бедер под животом. Измерьте сантиметровой лентой именно эту область и сверьтесь с нашей таблицей размеров.</p>
+                  <p class="faq__text">Размер бандажа выбирается по обхвату бедер под животом. Измерьте сантиметровой лентой именно эту область и сверьтесь с нашей таблицей размеров.</p>
                 </div>
               </li>              
               <li class="faq__item">
@@ -372,29 +373,29 @@
                 </button>
                 <!-- Контент с ответом -->
                 <div class="faq__answer" id="answer2" hidden>
-                  <p class="fag__text">Обычно бандаж рекомендуют носить с 20-й недели беременности, когда животик начинает активно расти. Однако лучше проконсультироваться с вашим врачом.</p>
+                  <p class="faq__text">Обычно бандаж рекомендуют носить с 20-й недели беременности, когда животик начинает активно расти. Однако лучше проконсультироваться с вашим врачом.</p>
                 </div>
               </li>                
               <li class="faq__item">
                 <!-- Кнопка для раскрытия -->
-                <button class="faq__question" aria-expanded="false" aria-controls="answer1">
+                <button class="faq__question" aria-expanded="false" aria-controls="answer3">
                   <span class="faq__question-text">3. Самый частый вопрос покупателей?</span>
                   <span class="faq__icon">+</span>
                 </button>
                 <!-- Контент с ответом -->
-                <div class="faq__answer" id="answer1" hidden>
-                  <p class="fag__text">Бандаж рекомендуется стирать вручную в прохладной воде с мягким моющим средством. Не использовать отбеливатель и машинную сушку. Сушить в расправленном виде away от прямых солнечных лучей.</p>
+                <div class="faq__answer" id="answer3" hidden>
+                  <p class="faq__text">Бандаж рекомендуется стирать вручную в прохладной воде с мягким моющим средством. Не использовать отбеливатель и машинную сушку. Сушить в расправленном виде away от прямых солнечных лучей.</p>
                 </div>
               </li>              
               <li class="faq__item">
                 <!-- Кнопка для раскрытия -->
-                <button class="faq__question" aria-expanded="false" aria-controls="answer2">
+                <button class="faq__question" aria-expanded="false" aria-controls="answer4">
                   <span class="faq__question-text">4. Еще один популярный вопрос?</span>
                   <span class="faq__icon">+</span>
                 </button>
                 <!-- Контент с ответом -->
-                <div class="faq__answer" id="answer2" hidden>
-                  <p class="fag__text">Рекомендуется носить бандаж не более 3-4 часов подряд, затем делать перерыв 30-40 минут. Общая продолжительность ношения в день — до 8-10 часов. Обязательно снимайте на ночь.</p>
+                <div class="faq__answer" id="answer4" hidden>
+                  <p class="faq__text">Рекомендуется носить бандаж не более 3-4 часов подряд, затем делать перерыв 30-40 минут. Общая продолжительность ношения в день — до 8-10 часов. Обязательно снимайте на ночь.</p>
                 </div>
               </li>
             </ul>
@@ -407,7 +408,7 @@
             <p class="cta__desc">Задайте его нам в WhatsApp</p>
             <a href="https://wa.me/78002334455" class="cta__btn btn" target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp">
               <span class="btn-text">Спросить в WhatsApp</span>
-              <div class="btn-shine"></div>
+              <span class="btn-shine"></span>
             </a>
           </div>
         </section>
@@ -459,13 +460,16 @@
             </nav>            
             <!-- Допустим, это блок с email подпиской --> 
             <p class="latest__text">Оставьте свою электронную почту</p>
-            <form class="latest__form modal__form_js" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь Вы можете получать новости на email" novalidate="novalidate">
+            <form class="latest__form" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь Вы можете получать новости на email" novalidate="novalidate">
               <!-- Скрытые поля ДЛЯ АДМИНА -->
-              <input type="hidden" name="admin_email[]" value="darki@yandex.ru"><!--darki@yandex.ru-->
-              <input type="hidden" name="admin_email[]" value="darki@mail.ru">
-              <input type="hidden" name="form_subject" value="Получать новости на email">
+              <input type="hidden" name="admin_email[]" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->
+              <input type="hidden" name="admin_email[]" value="floristika57@mail.ru"><!--darki@mail.ru-->
+              <input type="hidden" name="form_subject" value="Получать новости на email"><!-- Для кнопки -->
               <!-- ЭТО для ясности (форме шаблон) -->
               <input type="hidden" name="form_type" value="subscribe">
+              <input type="hidden" name="name" value="Подписка на email">
+              <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+              <input type="hidden" name="page_url" id="page_url" value="главная">
               <!-- Обернула в div, если понядобиться ещё один label -->
               <div class="latest__block">
                 <!--data здесь он обрабатывает плагин валидатор кода-->
@@ -498,7 +502,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.2.5/js/swiper.min.js"></script>
 
     <!-- Мои -->
-     <script src="js/hero__swiper.js"></script>
+    <script src="js/hero__swiper.js"></script>
     <script src="js/script.js"></script>
+
+    <!-- AJAX - Чтобы сайт не прыгал, нужно отправлять форму без перезагрузки страницы. ОН должен стоят после ваших скриптов, но до закрывающего тега </body>. -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      // Ловим любые формы, которые отправляются на mail.php ИЛИ mail-NoLoga.php
+      const forms = document.querySelectorAll('form[action*="mail.php"], form[action*="mail-NoLoga.php"]');
+
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault(); // Останавливаем обычную отправку
+
+          const formData = new FormData(this);
+
+          fetch(this.action, {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => {
+            if (response.ok) {
+              // Показываем сообщение об успехе
+              const message = document.createElement('div');
+              message.className = 'success-message';
+              message.textContent = '👍 Спасибо! Данные отправлены.';
+              message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #BF7691; color: white; padding: 15px 25px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 9999; animation: slideIn 0.3s ease;';
+              
+              document.body.appendChild(message);
+              
+              // Убираем сообщение через 3 секунды
+              setTimeout(() => message.remove(), 3000);
+              
+              // Очищаем поле email (если есть)
+              const emailInput = this.querySelector('input[name="email"]');
+              if (emailInput) emailInput.value = '';
+            } else {
+              alert('❌ Ошибка при отправке');
+            }
+          })
+          .catch(error => {
+            console.error('Ошибка:', error);
+            alert('❌ Произошла ошибка');
+          });
+        });
+      });
+    });
+    </script>
+
+    <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+    <script>
+      // Определяем, на какой мы странице
+      document.getElementById('page_url').value = 'главная';
+    </script> 
   </body>
 </html>

@@ -14,7 +14,7 @@
     <!-- здесь ссылка на сайт-->
     <meta property="og:url" content="http://....ru/">
     <!-- <meta property="og:image" content="картинка для поисковиков ссылка"> -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg">
+    <!-- <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg"> -->
     <meta name="keywords" content="заказать, цена, бельё, женское, мам">
     <!-- // Для поиска в сети-->
     <title>MAYA-Доставка</title>
@@ -116,7 +116,8 @@
               <div class="method-card">
                 <h3 class="method-card__title h3">Мы оформляем заказы по принципу 100% предоплаты 
                   при оформлении заказа</h3>
-                <ul class="method-card__list">Оплатить заказ можно:
+                <p class="method-card__intro">Оплатить заказ можно:</p>  
+                <ul class="method-card__list">
                   <li class="method-card__item">банковской картой у нас на сайте</li>
                   <li class="method-card__item">подарочным сертификатом (через директ в Instagram)</li>
                   <li class="method-card__item">переводом на карту Сбербанк, Тинькофф, Альфабанк 
@@ -176,12 +177,16 @@
             </nav>            
             <!-- Допустим, это блок с email подпиской --> 
             <p class="latest__text">Оставьте свою электронную почту</p>
-            <form class="latest__form modal__form_js" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь Вы можете получать новости на email" novalidate="novalidate">
-              <input type="hidden" name="admin_email[]" value="darki@yandex.ru"><!--darki@yandex.ru-->
-              <input type="hidden" name="admin_email[]" value="darki@mail.ru">
-              <input type="hidden" name="form_subject" value="Получать новости на email">
+            <form class="latest__form" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь Вы можете получать новости на email" novalidate="novalidate">
+              <!-- Скрытые поля ДЛЯ АДМИНА -->
+              <input type="hidden" name="admin_email[]" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->
+              <input type="hidden" name="admin_email[]" value="floristika57@mail.ru"><!--darki@mail.ru-->
+              <input type="hidden" name="form_subject" value="Получать новости на email"><!-- Для кнопки -->
               <!-- ЭТО для ясности (форме шаблон) -->
               <input type="hidden" name="form_type" value="subscribe">
+              <input type="hidden" name="name" value="Подписка на email">
+              <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+              <input type="hidden" name="page_url" id="page_url" value="доставка">
               <!-- Обернула в div, если понядобиться ещё один label -->
               <div class="latest__block">
                 <!--data здесь он обрабатывает плагин валидатор кода-->
@@ -212,5 +217,62 @@
 
     
     <script src="js/script.js"></script>
+
+    <!-- AJAX - Чтобы сайт не прыгал, нужно отправлять форму без перезагрузки страницы. ОН должен стоят после ваших скриптов, но до закрывающего тега </body>. -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      // Ловим любые формы, которые отправляются на mail.php ИЛИ mail-NoLoga.php
+      const forms = document.querySelectorAll('form[action*="mail.php"], form[action*="mail-NoLoga.php"]');
+
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault(); // Останавливаем обычную отправку
+
+          const formData = new FormData(this);
+
+          fetch(this.action, {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => {
+            if (response.ok) {
+              // Показываем сообщение об успехе
+              const message = document.createElement('div');
+              message.className = 'success-message';
+              message.textContent = '👍 Спасибо! Данные отправлены.';
+              message.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #BF7691; color: white; padding: 15px 25px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 9999; animation: slideIn 0.3s ease;';
+              
+              document.body.appendChild(message);
+              
+              // Убираем сообщение через 3 секунды
+              setTimeout(() => message.remove(), 3000);
+              
+              // Очищаем поле email (если есть)
+              const emailInput = this.querySelector('input[name="email"]');
+              if (emailInput) emailInput.value = '';
+            } else {
+              alert('❌ Ошибка при отправке');
+            }
+          })
+          .catch(error => {
+            console.error('Ошибка:', error);
+            alert('❌ Произошла ошибка');
+          });
+        });
+      });
+    });
+    </script>
+
+    <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
+    <script>
+      // Определяем, на какой мы странице
+      const path = window.location.pathname;
+      let page = 'неизвестно';
+      
+      if (path.includes('index') || path === '/') page = 'главная';
+      else if (path.includes('dostavka')) page = 'доставка';
+      
+      document.getElementById('page_url').value = page;
+    </script> 
   </body>
 </html>

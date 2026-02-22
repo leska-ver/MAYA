@@ -84,31 +84,74 @@ document.addEventListener('DOMContentLoaded', function() {
   const modals = document.querySelectorAll('.modal');
 
   // Функция для открытия модального окна
-  function openModal(modal) {
-    // Блокируем прокрутку страницы
-    document.body.classList.add('body-no-scroll');
-    
-    // Показываем модалку
-    modal.classList.add('modal--active');
-    
-    // Запускаем анимацию появления
-    setTimeout(() => {
-        modal.style.display = 'block';
-    }, 10);
-  }
-
-  // Функция для закрытия модального окна
-  function closeModal(modal) {
-    // Убираем активный класс для анимации исчезновения
-    modal.classList.remove('modal--active');
-    
-    // Ждем окончания анимации и скрываем модалку
-    setTimeout(() => {
-        modal.style.display = 'none';
-        // Разблокируем прокрутку страницы
-        document.body.classList.remove('body-no-scroll');
-    }, 300);
-  }
+    // Функция для открытия модального окна
+    function openModal(modal) {
+      // Блокируем прокрутку страницы
+      document.body.classList.add('body-no-scroll');
+      
+      // Показываем модалку
+      modal.classList.add('modal--active');
+      
+      // Запускаем анимацию появления
+      setTimeout(() => {
+          modal.style.display = 'block';
+      }, 10);
+  
+      // Чтобы модалка не прокручивалась
+      modal.addEventListener('wheel', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+      
+      modal.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+  
+      // Ставим фокус на модалку
+      modal.setAttribute('tabindex', '-1');
+      modal.focus();
+  
+      // Ловим табы внутри модалки
+      const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      
+      if (focusableElements.length > 0) {
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+  
+        modal.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeModal(modal);
+          }
+          
+          if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        });
+      }
+    }
+  
+    // Функция для закрытия модального окна
+    function closeModal(modal) {
+      // Запоминаем карточку, которая открыла эту модалку
+      const triggerCard = document.querySelector(`[data-modal="${modal.id}"]`);
+      
+      modal.classList.remove('modal--active');
+      
+      setTimeout(() => {
+          modal.style.display = 'none';
+          document.body.classList.remove('body-no-scroll');
+          
+          // Возвращаем фокус на ту же карточку
+          if (triggerCard) {
+            triggerCard.focus();
+          }
+      }, 300);
+    }
 
   // Добавляем обработчики для карточек
   cards.forEach(card => {
