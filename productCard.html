@@ -14,7 +14,7 @@
     <!-- здесь ссылка на сайт-->
     <meta property="og:url" content="http://....ru/">
     <!-- <meta property="og:image" content="картинка для поисковиков ссылка"> -->
-    <!-- <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage.jpg"> -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/leska-ver/leska-portfolio/main/img/propertyOgImage/og-product.jpg">
     <meta name="keywords" content="заказать, цена, бельё, женское, мам">
     <!-- // Для поиска в сети-->
     <title>MAYA-Карточка товара</title>
@@ -105,8 +105,8 @@
               </div>
               <form class="productCard__form" id="orderForm" action="mail.php" enctype="multipart/form-data" method="POST" aria-label="Здесь вы можете сделать выбор и отправить продавцу">
                 <!-- Скрытые поля ДЛЯ АДМИНА Массив админов -->
-                <input type="hidden" name="admin_email[]" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->
-                <input type="hidden" name="admin_email[]" value="floristika57@mail.ru"><!--darki@mail.ru-->
+                <input type="hidden" name="admin_email[]" value="darki@yandex.ru"><!--darki@yandex.ru-->
+                <input type="hidden" name="admin_email[]" value="darki@mail.ru"><!--darki@mail.ru-->
                 <input type="hidden" name="form_subject" value="В карточке товара"><!-- Для кнопки -->
                 <!-- Скрытое поле для определения страницы (заполняется через скрипт) -->
                 <input type="hidden" name="page_url" id="page_url" value="белья">
@@ -186,7 +186,7 @@
                   </div>
                 </fieldset>          
                 <!-- Скрытое поле с email (Для админа(для Reply-To в письме) сайта) -->
-                <input type="hidden" name="email" value="lyaisan.333@yandex.ru"><!--darki@yandex.ru-->          
+                <input type="hidden" name="email" value="darki@yandex.ru"><!--darki@yandex.ru-->          
                 <!-- Кнопка отправки -->
                 <button class="productCard__btn btn" type="submit">Заказать</button>
                 <div class="productCard__message" id="formMessage"></div>

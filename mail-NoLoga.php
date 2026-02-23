@@ -236,20 +236,20 @@ $message_body .= "<tr><td style='padding: 10px; border: 1px solid #ddd; font-wei
 			// $mail->addReplyTo($reply_email, $_POST['name'] ?? '');
 			// --- Настройки для локального тестирования --- Конец ---			
 
-			// --- Начало --- Настройки для продакшена (раскомментировать при необходимости). SMTP вы сможете настроить позже, когда получите правильный пароль от ящика test.ru. Это если пользователь присылает свой пароль на нашу почту.   
+			// --- Начало --- Настройки для продакшена (раскомментировать при необходимости). SMTP вы сможете настроить позже, когда получите правильный пароль от ящика darki@rambler.ru. Это если пользователь присылает свой пароль на нашу почту.   
 			$mail->isSMTP();
 			$mail->Host = 'smtp.timeweb.ru';        
 			$mail->SMTPAuth = true;
-			$mail->Username = 'test.ru'; // Почта в тимвебе(cc50985). Спам-фильтр
-			$mail->Password = 'g7K8p0Y!'; // ВАШ ПАРОЛЬ от почты test.ru
+			$mail->Username = 'darki@rambler.ru'; // Почта в тимвебе(cc50985). Спам-фильтр
+			$mail->Password = 'G7K8p0Y!Eb'; // ВАШ ПАРОЛЬ от почты darki@rambler.ru
 			$mail->SMTPSecure = 'ssl';
 			$mail->Port = 465;
-			$mail->From = 'test.ru';
+			$mail->From = 'darki@rambler.ru';
 			$mail->FromName = 'Магазин MAYA';
 			$mail->SMTPDebug = 2; // 0 = отключить, 2 = включить отладку. Увидели ошибку → исправили → вернули 0
 				
 			// От кого 
-			$mail->setFrom('test.ru', 'Магазин MAYA');
+			$mail->setFrom('darki@rambler.ru', 'Магазин MAYA');
 			// --- Настройки для продакшена --- Конец ---
 			
 			// Кому — админы
